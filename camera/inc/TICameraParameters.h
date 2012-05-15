@@ -245,7 +245,7 @@ static const char KEY_MECHANICAL_MISALIGNMENT_CORRECTION_SUPPORTED[];
 static const char KEY_MECHANICAL_MISALIGNMENT_CORRECTION[];
 
 //TI extensions for enable/disable algos
-static const char KEY_ALGO_FIXED_GAMMA[];
+static const char KEY_ALGO_EXTERNAL_GAMMA[];
 static const char KEY_ALGO_NSF1[];
 static const char KEY_ALGO_NSF2[];
 static const char KEY_ALGO_SHARPENING[];

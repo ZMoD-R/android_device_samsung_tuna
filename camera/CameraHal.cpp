@@ -1173,10 +1173,10 @@ int CameraHal::setParameters(const android::CameraParameters& params)
         }
 
         //TI extensions for enable/disable algos
-        if( (valstr = params.get(TICameraParameters::KEY_ALGO_FIXED_GAMMA)) != NULL )
+        if( (valstr = params.get(TICameraParameters::KEY_ALGO_EXTERNAL_GAMMA)) != NULL )
             {
-            CAMHAL_LOGDB("Fixed Gamma set %s", valstr);
-            mParameters.set(TICameraParameters::KEY_ALGO_FIXED_GAMMA, valstr);
+            CAMHAL_LOGDB("External Gamma set %s", valstr);
+            mParameters.set(TICameraParameters::KEY_ALGO_EXTERNAL_GAMMA, valstr);
             }
 
         if( (valstr = params.get(TICameraParameters::KEY_ALGO_NSF1)) != NULL )
@@ -1207,6 +1207,12 @@ int CameraHal::setParameters(const android::CameraParameters& params)
             {
             CAMHAL_LOGDB("Green Inballance Correction set %s", valstr);
             mParameters.set(TICameraParameters::KEY_ALGO_GIC, valstr);
+            }
+
+        if( (valstr = params.get(TICameraParameters::KEY_GAMMA_TABLE)) != NULL )
+            {
+            CAMHAL_LOGDB("Manual gamma table set %s", valstr);
+            mParameters.set(TICameraParameters::KEY_GAMMA_TABLE, valstr);
             }
 
         android::CameraParameters adapterParams = mParameters;
@@ -4607,7 +4613,7 @@ void CameraHal::initDefaultParameters()
 #ifndef OMAP_TUNA
     // TI extensions for enable/disable algos
     // Hadcoded for now
-    p.set(TICameraParameters::KEY_ALGO_FIXED_GAMMA, android::CameraParameters::TRUE);
+    p.set(TICameraParameters::KEY_ALGO_EXTERNAL_GAMMA, android::CameraParameters::FALSE);
     p.set(TICameraParameters::KEY_ALGO_NSF1, android::CameraParameters::TRUE);
     p.set(TICameraParameters::KEY_ALGO_NSF2, android::CameraParameters::TRUE);
     p.set(TICameraParameters::KEY_ALGO_SHARPENING, android::CameraParameters::TRUE);
