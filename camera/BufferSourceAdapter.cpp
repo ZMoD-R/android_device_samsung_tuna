@@ -326,6 +326,7 @@ CameraBuffer* BufferSourceAdapter::allocateBufferList(int width, int dummyHeight
 
     int pixFormat = getANWFormat(format);
     int usage = getUsageFromANW(pixFormat);
+    mPixelFormat = CameraHal::getPixelFormatConstant(format);
 
     // Set gralloc usage bits for window.
     err = mBufferSource->set_usage(mBufferSource, usage);
@@ -401,6 +402,7 @@ CameraBuffer* BufferSourceAdapter::allocateBufferList(int width, int dummyHeight
         CAMHAL_LOGDB("got handle %p", handle);
         mBuffers[i].opaque = (void *)handle;
         mBuffers[i].type = CAMERA_BUFFER_ANW;
+        mBuffers[i].format = mPixelFormat;
         mFramesWithCameraAdapterMap.add(handle, i);
 
         bytes = CameraHal::calculateBufferSize(format, width, height);
@@ -438,7 +440,6 @@ CameraBuffer* BufferSourceAdapter::allocateBufferList(int width, int dummyHeight
         mFramesWithCameraAdapterMap.removeItem((buffer_handle_t *) mBuffers[i].opaque);
     }
 
-    mPixelFormat = CameraHal::getPixelFormatConstant(format);
     mFrameWidth = width;
     mFrameHeight = height;
     mBufferSourceDirection = BUFFER_SOURCE_TAP_OUT;
