@@ -1036,9 +1036,6 @@ public:
 
     // Get min buffers display needs at any given time
     virtual status_t minUndequeueableBuffers(int& unqueueable) = 0;
-protected:
-    virtual const char* getPixFormatConstant(const char* parameters_format) const;
-    virtual size_t getBufSize(const char* parameters_format, int width, int height) const;
 
 private:
 #ifdef OMAP_ENHANCEMENT
@@ -1269,6 +1266,9 @@ public:
     static void eventCallbackRelay(CameraHalEvent* event);
     void eventCallback(CameraHalEvent* event);
     void setEventProvider(int32_t eventMask, MessageNotifier * eventProvider);
+
+    static const char* getPixelFormatConstant(const char* parameters_format);
+    static size_t calculateBufferSize(const char* parametersFormat, int width, int height);
 
 /*--------------------Internal Member functions - Private---------------------------------*/
 private:

@@ -403,7 +403,7 @@ CameraBuffer* BufferSourceAdapter::allocateBufferList(int width, int dummyHeight
         mBuffers[i].type = CAMERA_BUFFER_ANW;
         mFramesWithCameraAdapterMap.add(handle, i);
 
-        bytes = getBufSize(format, width, height);
+        bytes = CameraHal::calculateBufferSize(format, width, height);
     }
 
     for( i = 0;  i < mBufferCount-undequeued; i++ ) {
@@ -438,7 +438,7 @@ CameraBuffer* BufferSourceAdapter::allocateBufferList(int width, int dummyHeight
         mFramesWithCameraAdapterMap.removeItem((buffer_handle_t *) mBuffers[i].opaque);
     }
 
-    mPixelFormat = getPixFormatConstant(format);
+    mPixelFormat = CameraHal::getPixelFormatConstant(format);
     mFrameWidth = width;
     mFrameHeight = height;
     mBufferSourceDirection = BUFFER_SOURCE_TAP_OUT;
