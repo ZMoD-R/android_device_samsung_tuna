@@ -1272,6 +1272,7 @@ public:
     static void getXYFromOffset(unsigned int *x, unsigned int *y,
                                 unsigned int offset, unsigned int stride,
                                 const char* format);
+    static unsigned int getBPP(const char* format);
 
 /*--------------------Internal Member functions - Private---------------------------------*/
 private:

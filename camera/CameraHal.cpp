@@ -3130,7 +3130,7 @@ status_t CameraHal::__takePicture(const char *params)
 
         if ( NO_ERROR == ret )
             {
-            ret = allocImageBufs(frame.mAlignment,
+            ret = allocImageBufs(frame.mAlignment / getBPP(mParameters.getPictureFormat()),
                                  frame.mHeight,
                                  frame.mLength,
                                  mParameters.getPictureFormat(),
