@@ -1206,6 +1206,8 @@ private:
     bool mTunnelDestroyed;
     bool mPreviewPortInitialized;
 
+    // Used for allocations that need to be sent to Ducati
+    MemoryManager mMemMgr;
 };
 
 } // namespace Camera
