@@ -1467,6 +1467,7 @@ private:
     uint32_t *mImageOffsets;
     int mImageFd;
     int mImageLength;
+    unsigned int mImageCount;
     CameraBuffer *mPreviewBuffers;
     uint32_t *mPreviewOffsets;
     int mPreviewLength;
