@@ -1242,6 +1242,9 @@ status_t OMXCameraAdapter::startImageCapture(bool bracketing, CachedCaptureParam
                     mBurstFramesQueued++;
                 }
             }
+        } else {
+            mCapturedFrames += mBurstFrames;
+            mBurstFramesAccum += mBurstFrames;
         }
         CAMHAL_LOGD("mBurstFramesQueued = %d mBurstFramesAccum = %d index = %d "
                     "capData->mNumBufs = %d queued = %d capData->mMaxQueueable = %d",
@@ -1930,12 +1933,6 @@ status_t OMXCameraAdapter::UseBuffersCapture(CameraBuffer * bufArr, int num)
         }
     }
 #endif
-
-    {
-        android::AutoMutex lock(mBurstLock);
-        mCapturedFrames += mBurstFrames;
-        mBurstFramesAccum += mBurstFrames;
-    }
 
     mCaptureConfigured = true;
 
