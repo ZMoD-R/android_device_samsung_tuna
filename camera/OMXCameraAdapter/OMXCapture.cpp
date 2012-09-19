@@ -1736,14 +1736,6 @@ status_t OMXCameraAdapter::UseBuffersCapture(CameraBuffer * bufArr, int num)
 
     // capture is already configured...we can skip this step
     if (mCaptureConfigured) {
-        if ( NO_ERROR == ret )
-            {
-            ret = setupEXIF();
-            if ( NO_ERROR != ret )
-                {
-                CAMHAL_LOGEB("Error configuring EXIF Buffer %x", ret);
-                }
-            }
 
         mCapturedFrames = mBurstFrames;
         mBurstFramesQueued = 0;
