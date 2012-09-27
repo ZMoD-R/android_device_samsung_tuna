@@ -2312,7 +2312,7 @@ status_t OMXCameraAdapter::startPreview()
 #ifdef CAMERAHAL_DEBUG
         {
         android::AutoMutex locker(mBuffersWithDucatiLock);
-        mBuffersWithDucati.add((int)mPreviewData->mBufferHeader[index]->pAppPrivate,1);
+        mBuffersWithDucati.add((int)mPreviewData->mBufferHeader[index]->pBuffer,1);
         }
 #endif
         GOTO_EXIT_IF((eError!=OMX_ErrorNone), eError);
