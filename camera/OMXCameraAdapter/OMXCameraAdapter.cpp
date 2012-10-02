@@ -220,8 +220,6 @@ status_t OMXCameraAdapter::initialize(CameraProperties::Properties* caps)
     mVstabEnabled = false;
     mVnfEnabled = false;
     mBurstFrames = 1;
-    mBurstFramesAccum = 0;
-    mCapturedFrames = 0;
     mFlushShotConfigQueue = false;
     mPictureQuality = 100;
     mCurrentZoomIdx = 0;
@@ -260,6 +258,10 @@ status_t OMXCameraAdapter::initialize(CameraProperties::Properties* caps)
     mEXIFData.mGPSData.mTimeStampValid = false;
     mEXIFData.mModelValid = false;
     mEXIFData.mMakeValid = false;
+
+    mCapturedFrames = 0;
+    mBurstFramesAccum = 0;
+    mBurstFramesQueued = 0;
 
     //update the mDeviceOrientation with the sensor mount orientation.
     //So that the face detect will work before onOrientationEvent()

@@ -1481,6 +1481,10 @@ status_t OMXCameraAdapter::stopImageCapture()
     // Workaround when doing many consecutive shots, CAF wasn't getting restarted.
     mPending3Asettings |= SetFocus;
 
+    mCapturedFrames = 0;
+    mBurstFramesAccum = 0;
+    mBurstFramesQueued = 0;
+
     return (ret | Utils::ErrorUtils::omxToAndroidError(eError));
 
 EXIT:
