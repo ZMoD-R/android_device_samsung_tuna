@@ -2044,7 +2044,16 @@ status_t CameraHal::setPreviewWindow(struct preview_stream_ops *window)
     {
         // Need to create the display adapter since it has not been created
         // Create display adapter
-        mDisplayAdapter = new ANativeWindowDisplayAdapter();
+        ANativeWindowDisplayAdapter* displayAdapter = new ANativeWindowDisplayAdapter();
+        displayAdapter->setExternalLocking(mExternalLocking);
+        if (NULL != mAppCallbackNotifier.get()) {
+            mAppCallbackNotifier->setExternalLocking(mExternalLocking);
+        } else {
+            CAMHAL_LOGE("Can't apply locking policy on AppCallbackNotifier");
+            CAMHAL_ASSERT(0);
+        }
+
+        mDisplayAdapter = displayAdapter;
 #ifdef OMAP_ENHANCEMENT
         mDisplayAdapter->setExtendedOps(mExtendedPreviewStreamOps);
 #endif
@@ -3990,6 +3999,8 @@ CameraHal::CameraHal(int cameraId)
 
     mCameraIndex = cameraId;
 
+    mExternalLocking = false;
+
     LOG_FUNCTION_NAME_EXIT;
 }
 
@@ -4678,6 +4689,11 @@ void CameraHal::getPreferredPreviewRes(int *width, int *height)
     }
 
     LOG_FUNCTION_NAME_EXIT;
+}
+
+void CameraHal::setExternalLocking(bool extBuffLocking)
+{
+    mExternalLocking = extBuffLocking;
 }
 
 void CameraHal::resetPreviewRes(android::CameraParameters *params)
