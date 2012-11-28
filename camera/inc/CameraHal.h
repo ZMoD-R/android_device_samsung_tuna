@@ -1084,6 +1084,14 @@ class CameraHal
 {
 
 public:
+    enum SocFamily {
+        SocFamily_Undefined = -1,
+        SocFamily_Omap4430 = 0,
+        SocFamily_Omap4460,
+        SocFamily_Omap4470,
+        SocFamily_ElementCount    // element count of SocFamily
+    };
+
     ///Constants
     static const int NO_BUFFERS_PREVIEW;
     static const int NO_BUFFERS_IMAGE_CAPTURE;
@@ -1392,6 +1400,8 @@ private:
     status_t releaseTapoutLocked(struct preview_stream_ops *out);
     status_t setTapinLocked(struct preview_stream_ops *in);
     status_t releaseTapinLocked(struct preview_stream_ops *in);
+
+    static SocFamily getSocFamily();
 /*----------Member variables - Public ---------------------*/
 public:
     int32_t mMsgEnabled;
@@ -1522,6 +1532,8 @@ private:
     android::String8 mCapModeBackup;
 
     bool mExternalLocking;
+
+    const SocFamily mSocFamily;
 };
 
 } // namespace Camera
