@@ -252,6 +252,11 @@ static const char KEY_ALGO_SHARPENING[];
 static const char KEY_ALGO_THREELINCOLORMAP[];
 static const char KEY_ALGO_GIC[];
 
+//Gamma table
+static const char KEY_GAMMA_TABLE[];
+
+static const char KEY_PREVIEW_FRAME_RATE_RANGE[];
+
 };
 
 } // namespace Camera

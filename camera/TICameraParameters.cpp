@@ -228,5 +228,9 @@ const char TICameraParameters::KEY_ALGO_SHARPENING[] = TI_KEY_ALGO_PREFIX "sharp
 const char TICameraParameters::KEY_ALGO_THREELINCOLORMAP[] = TI_KEY_ALGO_PREFIX "threelinecolormap";
 const char TICameraParameters::KEY_ALGO_GIC[] = TI_KEY_ALGO_PREFIX "gic";
 
+const char TICameraParameters::KEY_GAMMA_TABLE[] = "gamma-table";
+
+const char TICameraParameters::KEY_PREVIEW_FRAME_RATE_RANGE[] = "preview-frame-rate-range";
+
 } // namespace Camera
 } // namespace Ti
