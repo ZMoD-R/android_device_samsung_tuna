@@ -120,9 +120,7 @@ OMX_U16 nBFrames = 0; /* Number of B Frames in H264 Encoder */
  * ANDROID_QUIRCK_CHANGE_PORT_VALUES
  */
 #define OMX_H264VE_NUM_INTERNAL_BUF (8)
-#ifndef HAL_PIXEL_FORMAT_TI_NV12
 #define HAL_PIXEL_FORMAT_TI_NV12 (0x100)
-#endif
 
 #define COLORCONVERT_MAX_SUB_BUFFERS (3)
 

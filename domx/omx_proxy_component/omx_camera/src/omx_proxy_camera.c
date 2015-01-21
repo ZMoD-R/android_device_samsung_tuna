@@ -176,7 +176,6 @@ static OMX_ERRORTYPE ComponentPrivateDeInit(OMX_IN OMX_HANDLETYPE hComponent)
 		PROXY_assert(eOsalError == TIMM_OSAL_ERR_NONE,
 		    OMX_ErrorInsufficientResources, "Mutex release failed");
 	}
-#ifndef OMAP_TUNA
         for(i=0; i < MAX_NUM_INTERNAL_BUFFERS; i++) {
             if (gCamIonHdl[i][0] != NULL) {
                 ion_free(pCompPrv->ion_fd, gCamIonHdl[i][0]);
@@ -197,7 +196,6 @@ static OMX_ERRORTYPE ComponentPrivateDeInit(OMX_IN OMX_HANDLETYPE hComponent)
                 gComponentBufferAllocation[i][j] = NULL;
             }
         }
-#endif
 
 	eError = PROXY_ComponentDeInit(hComponent);
 
@@ -245,9 +243,7 @@ static OMX_ERRORTYPE Camera_SendCommand(OMX_IN OMX_HANDLETYPE hComponent,
 			}
 			dcc_loaded = OMX_TRUE;
 		}
-	}
-#ifndef OMAP_TUNA
-	else if (eCmd == OMX_CommandPortDisable) {
+	} else if (eCmd == OMX_CommandPortDisable) {
             int i, j;
             for (i = 0; i < MAX_NUM_INTERNAL_BUFFERS; i++) {
                 for (j = 0; j < PROXY_MAXNUMOFPORTS; j++) {
@@ -261,7 +257,7 @@ static OMX_ERRORTYPE Camera_SendCommand(OMX_IN OMX_HANDLETYPE hComponent,
             }
 
         }
-#endif
+
 
 	eError =
 	PROXY_SendCommand(hComponent,eCmd,nParam,pCmdData);
@@ -570,7 +566,6 @@ OMX_ERRORTYPE OMX_ComponentInit(OMX_HANDLETYPE hComponent)
 		TIMM_OSAL_Free(pComponentPrivate);
 		goto EXIT;
 	}
-#ifndef OMAP_TUNA
         for(i=0; i < MAX_NUM_INTERNAL_BUFFERS; i++) {
             gCamIonHdl[i][0] = NULL;
             gCamIonHdl[i][1] = NULL;
@@ -581,7 +576,7 @@ OMX_ERRORTYPE OMX_ComponentInit(OMX_HANDLETYPE hComponent)
                 gComponentBufferAllocation[i][j] = NULL;
             }
         }
-#endif
+
 	pHandle->ComponentDeInit = ComponentPrivateDeInit;
 	pHandle->GetConfig = CameraGetConfig;
 	pHandle->SetConfig = CameraSetConfig;

@@ -68,7 +68,8 @@ extern "C" {
  /* ======================================================================= */
 typedef enum OMX_JPEG_COMPRESSEDMODETYPE {
     OMX_JPEG_ModeChunk = 0,
-    OMX_JPEG_ModeNonChunk
+    OMX_JPEG_ModeNonChunk,
+    OMX_JPEG_CompressedmodeMax = 0x7fffffff
 }OMX_JPEG_COMPRESSEDMODETYPE ;
 
 
@@ -86,7 +87,8 @@ typedef enum OMX_JPEG_UNCOMPRESSEDMODETYPE {
     OMX_JPEG_UncompressedModeFrame = 0,
     OMX_JPEG_UncompressedModeSlice,
     OMX_JPEG_UncompressedModeStitch,
-    OMX_JPEG_UncompressedModeBurst
+    OMX_JPEG_UncompressedModeBurst,
+    OMX_JPEG_UncompressedModeMax = 0x7fffffff
 }OMX_JPEG_UNCOMPRESSEDMODETYPE;
 
 
@@ -361,7 +363,8 @@ typedef struct OMX_CONFIG_SCALEQUALITYTYPE {
 typedef enum OMX_SMOOTHZOOMMODE{
     OMX_Off=0, /**< default OFF */
     OMX_Increase,
-    OMX_Decrease
+    OMX_Decrease,
+    OMX_SmoothZoomModeMax = 0x7fffffff
 }OMX_SMOOTHZOOMMODE;
 
 
@@ -407,7 +410,8 @@ typedef enum OMX_EXTIMAGEFILTERTYPE {
     OMX_TI_ImageFilterWhiteBoard,
     OMX_TI_ImageFilterBlackBoard,
     OMX_TI_ImageFilterAqua,
-    OMX_TI_ImageFilterPosterize
+    OMX_TI_ImageFilterPosterize,
+    OMX_ImageFilterTypeMax = 0x7fffffff
 } OMX_EXTIMAGEFILTERTYPE;
 
 
