@@ -108,16 +108,12 @@
 #define BORDER_HEIGHT 32
 #define MAX_VTC_WIDTH_WITH_VNF (MAX_VTC_WIDTH + BORDER_WIDTH)
 #define MAX_VTC_HEIGHT_WITH_VNF (MAX_VTC_HEIGHT + BORDER_HEIGHT)
-#ifndef OMAP_TUNA
 OMX_PTR gCamIonHdl[MAX_NUM_INTERNAL_BUFFERS][2];
-#endif
 
 /* Tiler heap resservation specific */
 #define OMAP_ION_HEAP_TILER_ALLOCATION_MASK (1<<4)
-#ifndef OMAP_TUNA
 /* store handles for tracking and freeing */
 OMX_PTR gComponentBufferAllocation[PROXY_MAXNUMOFPORTS][MAX_NUM_INTERNAL_BUFFERS];
-#endif
 
 /* Incase of multiple instance, making sure DCC is initialized only for
    first instance */
@@ -190,6 +186,7 @@ static OMX_ERRORTYPE ComponentPrivateDeInit(OMX_IN OMX_HANDLETYPE hComponent)
                 ion_free(pCompPrv->ion_fd, gCamIonHdl[i][1]);
                 gCamIonHdl[i][1] = NULL;
             }
+
         }
 
         for (i = 0; i < PROXY_MAXNUMOFPORTS; i++) {
@@ -262,6 +259,7 @@ static OMX_ERRORTYPE Camera_SendCommand(OMX_IN OMX_HANDLETYPE hComponent,
                     }
                 }
             }
+
         }
 #endif
 
@@ -403,17 +401,15 @@ static OMX_ERRORTYPE CameraSetParam(OMX_IN OMX_HANDLETYPE
     OMX_INOUT OMX_PTR pComponentParameterStructure)
 {
     OMX_ERRORTYPE eError = OMX_ErrorNone;
-    OMX_COMPONENTTYPE *hComp = (OMX_COMPONENTTYPE *)hComponent;
 #ifndef OMAP_TUNA
     struct ion_handle *handle;
     OMX_U32 i =0;
     OMX_S32 ret = 0;
     PROXY_COMPONENT_PRIVATE *pCompPrv;
+    OMX_COMPONENTTYPE *hComp = (OMX_COMPONENTTYPE *)hComponent;
     OMX_U32 stride_Y = 0, stride_UV = 0;
-#ifndef OMAP_TUNA
     OMX_TI_PARAM_VTCSLICE *pVtcConfig;// = (OMX_TI_PARAM_VTCSLICE *)pComponentParameterStructure;
     OMX_TI_PARAM_COMPONENTBUFALLOCTYPE *bufferalloc = NULL;
-#endif
     int size = 0;
     int fd1 = -1, fd2 = -1;
 
@@ -421,7 +417,6 @@ static OMX_ERRORTYPE CameraSetParam(OMX_IN OMX_HANDLETYPE
     //fprintf(stdout, "DOMX: CameraSetParam: called!!!\n");
     switch (nParamIndex)
     {
-#ifndef OMAP_TUNA
         case OMX_TI_IndexParamVtcSlice:
             pVtcConfig = (OMX_TI_PARAM_VTCSLICE *)pComponentParameterStructure;
             fprintf(stdout, "DOMX: CameraSetParam: OMX_TI_IndexParamVtcSlice is called!!!\n");
@@ -516,7 +511,6 @@ static OMX_ERRORTYPE CameraSetParam(OMX_IN OMX_HANDLETYPE
         }
 		goto EXIT;
 		break;
-#endif
 	default:
 		 break;
 	}
