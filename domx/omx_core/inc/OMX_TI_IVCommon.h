@@ -673,7 +673,11 @@ typedef enum OMX_IMAGE_EXTFOCUSCONTROLTYPE {
     OMX_IMAGE_FocusControlPortrait, /**< from Xena */
     OMX_IMAGE_FocusControlExtended, /**< from Xena */
     OMX_IMAGE_FocusControlContinousNormal, /**< from Xena */
-    OMX_IMAGE_FocusControlContinousExtended /**< from Xena */
+    OMX_IMAGE_FocusControlContinousExtended,     /**< from Xena */
+    OMX_IMAGE_FocusControlContinousFacePriority,
+    OMX_IMAGE_FocusControlContinousRegionPriority,
+    OMX_IMAGE_FocusControlContinousPicture,
+    OMX_IMAGE_FocusControlTypeMax = 0x7fffffff
 } OMX_IMAGE_EXTFOCUSCONTROLTYPE;
 
 
@@ -839,7 +843,8 @@ typedef enum OMX_EXTWHITEBALCONTROLTYPE {
     OMX_TI_WhiteBalControlSunset,
     OMX_TI_WhiteBalControlShade,
     OMX_TI_WhiteBalControlTwilight,
-    OMX_TI_WhiteBalControlWarmFluorescent
+    OMX_TI_WhiteBalControlWarmFluorescent,
+    OMX_TI_WhiteBalControlMax = 0x7fffffff
 } OMX_EXTWHITEBALCONTROLTYPE;
 
 /**
@@ -939,7 +944,8 @@ OMX_PROCESSINGTYPE eProc;
 typedef enum OMX_HISTTYPE{
         OMX_HistControlLuminance = 0, /**< Luminance histogram is calculated (Y)*/
         OMX_HistControlColorComponents, /**< A histogram per color component (R, G, B) is calculated*/
-        OMX_HistControlChrominanceComponents /**< A histogram per chrominance component (Cb, Cr) is calculated.*/
+    OMX_HistControlChrominanceComponents,     /**< A histogram per chrominance component (Cb, Cr) is calculated.*/
+    OMX_HistControl_32BIT_PATCH = 0x7FFFFFFF
 }OMX_HISTTYPE;
 
 /**
@@ -976,7 +982,7 @@ typedef struct OMX_CONFIG_HISTOGRAMTYPE {
 } OMX_CONFIG_HISTOGRAMTYPE;
 
 /**
- * Enums for HIST component type.
+ * OMX_HISTCOMPONENTTYPE Enumerated Value
  */
 typedef enum OMX_HISTCOMPONENTTYPE{
         OMX_HISTCOMP_Y = 0, /**<    Luminance histogram (Y) */
@@ -985,13 +991,14 @@ typedef enum OMX_HISTCOMPONENTTYPE{
         OMX_HISTCOMP_G, /**< Green histogram component (G)*/
         OMX_HISTCOMP_B, /**< Blue histogram component (B)*/
         OMX_HISTCOMP_Cb,    /**< Chroma blue histogram component (Cb)*/
-        OMX_HISTCOMP_Cr /**< Chroma red histogram component (Cr) */
+    OMX_HISTCOMP_Cr,     /**< Chroma red histogram component (Cr) */
+    OMX_HISTCOMP_32BIT_PATCH = 0x7FFFFFFF
 }OMX_HISTCOMPONENTTYPE;
 
  /**
  * The OMX_TI_CAMERAVIEWTYPE enumeration is used to identify the
- * particular camera view that the rest of the data in the structure is
- * associated with.
+ * particular camera view and frame type that the rest of
+ * the data in the structure is associated with.
  */
 typedef enum OMX_TI_CAMERAVIEWTYPE
 {
