@@ -212,6 +212,7 @@ typedef enum OMX_TI_INDEXTYPE {
     OMX_TI_IndexAndroidNativeBufferUsage,          /**< reference: OMX_TI_IndexAndroidNativeBufferUsage */
     OMX_TI_IndexConfigAlgoAreas,                         /**< reference: OMX_PARAM_SHAREDBUFFER (pSharedBuff is OMX_ALGOAREASTYPE) */
     OMX_TI_IndexConfigAutofocusEnable,             /**< reference: OMX_CONFIG_BOOLEANTYPE */
+    OMX_TI_IndexComponentHandle,                        /**< 0x7F0000** reference: OMX_TI_COMPONENT_HANDLE */
     OMX_TI_IndexUseBufferDescriptor                    /**< 0x7F0000** reference: OMX_TI_PARAM_USEBUFFERDESCRIPTOR */
 } OMX_TI_INDEXTYPE;
 
