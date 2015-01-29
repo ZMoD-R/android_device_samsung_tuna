@@ -1007,6 +1007,120 @@ typedef enum OMX_TI_CAMERAVIEWTYPE
     OMX_Right,  /**< Right camera view in stereo sensor configuration */
     OMX_TI_CAMERAVIEWTYPE_32BIT_PATCH = 0x7FFFFFFF
 } OMX_TI_CAMERAVIEWTYPE;
+
+#define OMX_OTHER_EXTRADATATYPE_SIZE ((OMX_U32)(((OMX_OTHER_EXTRADATATYPE *)0x0)->data))  /**< Size of OMX_OTHER_EXTRADATATYPE
+                                                                                without Data[1] and without padding */
+
+/**
+ * The extra data having DCC data is described with the following structure.
+ * This data contains single flags and values
+ * (not arrays) that have general usage for camera applications.
+ */
+typedef struct OMX_TI_DCCDATATYPE {
+    OMX_U32               nSize;
+    OMX_VERSIONTYPE       nVersion;
+    OMX_U32               nPortIndex;
+    OMX_TI_CAMERAVIEWTYPE eCameraView;
+    OMX_U32               nCameraModuleId;
+    OMX_U32               nDccDescriptorId;
+    OMX_U32               nAlgorithmVendorId;
+    OMX_U32               nUseCaseId;
+    OMX_U32               nOffset;
+    OMX_PTR               pData;
+} OMX_TI_DCCDATATYPE;
+/**
+ * The extra data type to feed the camera re-processing function
+ */
+typedef struct OMX_TI_CAMREPROCMETATYPE {
+    OMX_U32 nExpTime;
+    OMX_U32 nGain;
+} OMX_TI_CAMREPROCMETATYPE;
+
+/**
+ * The extra data vector shot feedback info
+ *  nConfigId   : Same id that cames with
+ *                OMX_TI_CONFIG_ENQUEUESHOTCONFIGS::nShotConfig[x].nConfigId
+ *                for particular shot config.
+ *  nFrameNum   : Frame number in vect shot repeat sequence.
+ *                Starts from 1 for every shot config.
+ *
+ *  nExpMin     : The exposure time lower limit,[us]
+ *  nExpMax     : The exposure time upper limit,[us]
+ *  nGainMin    : The analog gain lower limit,[0,01EV]
+ *  nGainMax    : The analog gain upper limit,[0,01EV]
+ *
+ *  nReqEC      : Requested total exposure compensation
+ *  nReqExpTime : Requested exposure time
+ *  nReqGain    : Requested gain
+ *
+ *  nExpTime    : Exposure time of this frame.
+ *  nAGain      : Analog gain of this frame.
+ *
+ *  nSenExpTimeErr : Exposure time error in us.
+ *                If the requested exposure time is ExpReq
+ *                and the one produced by the sensor is nExpTime then:
+ *                nExpTimeErr = nExpTime - ExpReq.
+ *  nSenAGainErr: Analog gain error as multiplier (in Q8 format).
+ *
+ *  nDevEV      : The total exposure deviation,[us]
+ *  nDevExpTime : The exposure time deviation after flicker reduction,[us]
+ *  nDevAGain   : The analog gain deviation after flicker reduction,[0,01EV]
+ */
+typedef struct OMX_TI_VECTSHOTINFOTYPE {
+    OMX_U32 nConfigId;
+    OMX_U32 nFrameNum;
+    OMX_U32 nExpMin;
+    OMX_U32 nExpMax;
+    OMX_U32 nGainMin;
+    OMX_U32 nGainMax;
+    OMX_S32 nReqEC;
+    OMX_S32 nReqExpTime;
+    OMX_S32 nReqGain;
+    OMX_U32 nExpTime;
+    OMX_U32 nAGain;
+    OMX_S32 nSenExpTimeErr;
+    OMX_U32 nSenAGainErr;
+    OMX_S32 nDevEV;
+    OMX_S32 nDevExpTime;
+    OMX_S32 nDevAGain;
+} OMX_TI_VECTSHOTINFOTYPE;
+
+/*
+ * LSC gain table size
+ */
+#define OMX_TI_LSC_GAIN_TABLE_SIZE (80 * 1024)
+
+/**
+ * Possible LSC table gain formats
+ */
+typedef enum OMX_TI_LSC_GAIN_FORMAT_TYPE {
+    OMX_TI_LSC_GAIN_FORMAT_0Q8,
+    OMX_TI_LSC_GAIN_FORMAT_0Q8_PLUS_1,
+    OMX_TI_LSC_GAIN_FORMAT_1Q7,
+    OMX_TI_LSC_GAIN_FORMAT_1Q7_PLUS_1,
+    OMX_TI_LSC_GAIN_FORMAT_2Q6,
+    OMX_TI_LSC_GAIN_FORMAT_2Q6_PLUS_1,
+    OMX_TI_LSC_GAIN_FORMAT_3Q5,
+    OMX_TI_LSC_GAIN_FORMAT_3Q5_PLUS_1,
+    OMX_TI_LSC_GAIN_FORMAT = 0x7FFFFFFF
+} OMX_TI_LSC_GAIN_FORMAT_TYPE;
+
+/**
+ * The extra data for LSC table
+ *  bApplied    : If true the table is applied to the frame.
+ *  eGainFormat : Paxel format
+ *  nWidth      : LSC table width in paxels
+ *  nHeight     : LSC table height in paxels
+ *  pGainTable  : LSC gain table
+ */
+typedef struct OMX_TI_LSCTABLETYPE {
+    OMX_BOOL bApplied;
+    OMX_TI_LSC_GAIN_FORMAT_TYPE eGainFormat;
+    OMX_U32 nWidth;
+    OMX_U32 nHeight;
+    OMX_U8 pGainTable[OMX_TI_LSC_GAIN_TABLE_SIZE];
+} OMX_TI_LSCTABLETYPE;
+
 /**
  *  nSize is the size of the structure including the length of data field containing
  *  the histogram data.
@@ -1026,7 +1140,7 @@ typedef struct OMX_HISTOGRAMTYPE {
     OMX_U8  data[1];
 } OMX_HISTOGRAMTYPE;
 
-#define OMX_OTHER_EXTRADATATYPE_SIZE ( (OMX_U32)(((OMX_OTHER_EXTRADATATYPE*)0x0)->data) ) /**< Size of OMX_OTHER_EXTRADATATYPE**/
+
 /**
  * The extra data having ancillary data is described with the following structure.
  * This data contains single flags and values
@@ -1072,6 +1186,11 @@ typedef  struct OMX_TI_ANCILLARYDATATYPE {
     OMX_U8              nDCCStatus;
 } OMX_TI_ANCILLARYDATATYPE;
 
+/**
+ * White Balance Results data
+ *  The extra data having white balance results data is
+ *  described with the following structure..
+ */
 typedef struct OMX_TI_WHITEBALANCERESULTTYPE {
     OMX_U32             nSize;          /**< Size */
     OMX_VERSIONTYPE     nVersion;       /**< Version */
@@ -1099,7 +1218,8 @@ typedef struct OMX_TI_UNSATURATEDREGIONSTYPE {
     OMX_U32             nPortIndex;     /**< Port Index */
     OMX_U16             nPaxelsX;       /**< The number of paxels in the horizontal direction */
     OMX_U16             nPaxelsY;       /**< The number of paxels in the vertical direction */
-    OMX_U16             data[1];        /**< the first value of an array of values that represent */
+    OMX_U16         data[1];     /**< the first value of an array of values that represent
+                                     the percentage of unsaturated pixels within the associated paxel */
 } OMX_TI_UNSATURATEDREGIONSTYPE;
 
 /**
@@ -2352,6 +2472,45 @@ typedef struct OMX_TI_CAPRESTYPE {
  * ulCapVarFPSModesCount                : Number of capture FPS modes
  * tCapVarFPSModes                      : Capture FPS modes
  * tSenMounting                         : Sensor mount information
+ * ulAutoConvModesCount                 : Supported auto convergence modes count
+ * eAutoConvModes                       : Array containing the auto convergence modes
+ * ulBracketingModesCount               : Supported bracketing modes count
+ * eBracketingModes                     : Array containing the bracketing modes
+ * bGbceSupported                       : Flag showing if the Gbce is supported
+ * bRawJpegSupported                    : Flag showing if the Raw + Jpeg is supported
+ * ulImageCodingFormatCount             : Supported image coding formats count
+ * eImageCodingFormat                   : Array containing the image coding formats
+ * uSenNativeResWidth                   : Sensor native resolution width
+ * uSenNativeResHeight                  : Sensor native resolution height
+ * ulAlgoAreasFocusCount                : Supported number of AlgoAreas for focus areas
+ * ulAlgoAreasExposureCount             : Supported number of AlgoAreas for exposure areas
+ * bAELockSupported                     : Flag showing if the AE Lock is supported
+ * bAWBLockSupported                    : Flag showing if the AWB Lock is supported
+ * bAFLockSupported                     : Flag showing if the Af Lock is supported
+ * nFocalLength                         : Focal length defined in terms of 0.01mm
+ * ulPrvFrameLayoutCount                : supported frame layout count for preview
+ * ePrvFrameLayout                      : Array containing the frame layouts for preview
+ * ulCapFrameLayoutCount                : supported frame layout count for capture
+ * eCapFrameLayout                      : Array containing the frame layouts for capture
+ * bVideoNoiseFilterSupported           : Flag showing if the video noise filter is supported
+ * bVideoStabilizationSupported         : Flag showing if the video stabilization is supported
+ * bStillCapDuringVideoSupported        : Flag showing if the still capture is supported during video
+ * bMechanicalMisalignmentSupported     : Flag showing if the mechanical misalignment is supported
+ * bFacePrioritySupported               : Flag showing if the face priority is supported
+ * bRegionPrioritySupported             : Flag showing if the region priority is supported
+ * bGlbceSupported                      : Flag showing if the GLBCE is supported
+ * nManualConvMin                       : Manual convergence min value
+ * nManualConvMax                       : Manual convergence max value
+ * nManualExpMin                        : Manual exposure time min value
+ * nManualExpMax                        : Manual exposure time max value
+ * nBrightnessMin                       : Brightness min value
+ * nBrightnessMax                       : Brightness max value
+ * nContrastMin                         : Contrast min value
+ * nContrastMax                         : Contrast max value
+ * nSharpnessMin                        : Sharpness min value
+ * nSharpnessMax                        : Sharpness max value
+ * nSaturationMin                       : Saturation min value
+ * nSaturationMax                       : Saturation max value
  */
 typedef struct OMX_TI_CAPTYPE {
 	OMX_U32                 nSize;
