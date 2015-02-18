@@ -462,6 +462,8 @@ typedef enum OMX_BRACKETMODETYPE {
     OMX_BracketFlashPower,
     OMX_BracketAperture,
     OMX_BracketTemporal,
+    OMX_BracketExposureGainAbsolute,
+    OMX_BracketVectorShot,
     OMX_BrackerTypeKhronosExtensions = 0x6f000000,
     OMX_BrackerTypeVendorStartUnused = 0x7f000000,
     OMX_BracketTypeMax = 0x7FFFFFFF
@@ -474,6 +476,7 @@ typedef struct OMX_CONFIG_BRACKETINGTYPE {
     OMX_BRACKETMODETYPE eBracketMode;
     OMX_U32 nNbrBracketingValues;
     OMX_S32 nBracketValues[10]; /**< 10 can be assumed */
+    OMX_S32             nBracketValues2[10];     /**< 10 can be assumed */
 } OMX_CONFIG_BRACKETINGTYPE;
 
 
@@ -521,8 +524,18 @@ typedef enum OMX_CAMOPERATINGMODETYPE {
         OMX_TI_CaptureDummy,
         OMX_TI_CaptureGestureRecognition,
         OMX_TI_CaptureImageProfileZeroShutterLag,
-        OMX_CamOperatingModeMax = 0x7fffffff
+        OMX_TI_SinglePreview,
+        OMX_TI_StereoGestureRecognition,
+        OMX_TI_CPCam,
+        OMX_TI_StereoVideo,
+        OMX_CaptureHighQualityVideo,
+        // Put new entries here so OMX_CamOperatingModeMax always points to
+        // the last one
+        OMX_TI_CamOperatingModeCount,
+        OMX_CamOperatingModeMax = OMX_TI_CamOperatingModeCount - 1,
+        OMX_CamOperatingMode = 0x7fffffff
 } OMX_CAMOPERATINGMODETYPE;
+
 /**
  * Capture mode setting: applicable to multi shot capture also including bracketing.
  *
