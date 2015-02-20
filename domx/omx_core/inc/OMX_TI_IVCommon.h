@@ -1238,9 +1238,10 @@ typedef struct OMX_TI_UNSATURATEDREGIONSTYPE {
 /**
  * OMX_BARCODETYPE
  */
-typedef enum OMX_BARCODETYPE{
+typedef enum OMX_BARCODETYPE {
         OMX_BARCODE1D = 0,      /**< 1D barcode */
         OMX_BARCODE2D,          /**< 2D barcode */
+    OMX_BarcodeMax = 0x7fffffff
 }OMX_BARCODETYPE;
 /**
  * Brcode detection data
@@ -1256,12 +1257,13 @@ typedef struct OMX_BARCODEDETECTIONTYPE {
 	OMX_VERSIONTYPE nVersion;
 	OMX_U32 nPortIndex;
 	OMX_TI_CAMERAVIEWTYPE eCameraView;
-	OMX_S32 nLeft;
-	OMX_S32 nTop;
-	OMX_U32 nWidth;
-	OMX_U32 nHeight;
-	OMX_S32 nOrientation;
-	OMX_BARCODETYPE eBarcodetype;
+    OMX_S32               nLeft;     /**< The leftmost coordinate of the detected area rectangle */
+    OMX_S32               nTop;     /**< Topmost coordinate of the detected area rectangle */
+    OMX_U32               nWidth;     /**< The width of the detected area rectangle in pixels */
+    OMX_U32               nHeight;     /**< The height of the detected area rectangle in pixels */
+    OMX_S32               nOrientation;     /**< The orientation of the axis of the detected object.
+                                         This refers to the angle between the vertical axis of barcode and the horizontal axis */
+    OMX_BARCODETYPE eBarcodetype;     /**< An enumeration specifying the barcode type, as listed in the given table */
  } OMX_BARCODEDETECTIONTYPE;
 
 /**
@@ -1276,10 +1278,10 @@ typedef struct OMX_FRONTOBJDETECTIONTYPE {
     OMX_VERSIONTYPE nVersion;
     OMX_U32 nPortIndex;
     OMX_TI_CAMERAVIEWTYPE eCameraView;
-    OMX_S32 nLeft;
-    OMX_S32 nTop;
-    OMX_U32 nWidth;
-    OMX_U32 nHeight;
+    OMX_S32               nLeft;     /**< The leftmost coordinate of the detected area rectangle */
+    OMX_S32               nTop;     /**< The topmost coordinate of the detected area rectangle */
+    OMX_U32               nWidth;     /**< The width of the detected area rectangle in pixels */
+    OMX_U32               nHeight;     /**< The height of the detected area rectangle in pixels */
 } OMX_FRONTOBJDETECTIONTYPE;
 
 /**
@@ -1292,8 +1294,9 @@ typedef struct OMX_DISTANCEESTIMATIONTYPE {
     OMX_VERSIONTYPE nVersion;
     OMX_U32 nPortIndex;
     OMX_TI_CAMERAVIEWTYPE eCameraView;
-    OMX_U32 nDistance;
-    OMX_U32 nLargestDiscrepancy;
+    OMX_U32               nDistance;        /**< Estimated distance to the object in millimeters */
+    OMX_U32               nLargestDiscrepancy;     /**< the estimated largest discrepancy of the distance to the object in millimeters.
+                                                 When equal to MAX_INT the discrepancy is unknown */
 } OMX_DISTANCEESTIMATIONTYPE;
 
 /**
@@ -1307,8 +1310,10 @@ typedef struct OMX_MOTIONESTIMATIONTYPE {
     OMX_VERSIONTYPE nVersion;
     OMX_U32 nPortIndex;
     OMX_TI_CAMERAVIEWTYPE eCameraView;
-    OMX_S32 nPanX;
-    OMX_S32 nPanY;
+    OMX_S32               nPanX;     /**< The detected translation in horizontal direction.
+                                     The value is represented as pixels in Q16-format */
+    OMX_S32 nPanY;              /**< The detected translation in vertical direction.
+                                     The value is represented as pixels in Q16-format */
 } OMX_MOTIONESTIMATIONTYPE;
 
 
@@ -1326,11 +1331,12 @@ typedef struct OMX_FOCUSREGIONTYPE {
     OMX_VERSIONTYPE nVersion;
     OMX_U32 nPortIndex;
     OMX_TI_CAMERAVIEWTYPE eCameraView;
-    OMX_U32 nRefPortIndex;
-    OMX_S32 nLeft;
-    OMX_S32 nTop;
-    OMX_U32 nWidth;
-    OMX_U32 nHeight;
+    OMX_U32               nRefPortIndex;     /**< The port the image frame size is defined on.
+                                     This image frame size is used as reference for the focus region rectangle */
+    OMX_S32 nLeft;              /**< The leftmost coordinate of the focus region rectangle */
+    OMX_S32 nTop;               /**< The topmost coordinate of the focus region rectangle */
+    OMX_U32 nWidth;             /**< The width of the focus region rectangle in pixels */
+    OMX_U32 nHeight;            /**< The height of the focus region rectangle in pixels */
 } OMX_FOCUSREGIONTYPE;
 
 /**
@@ -1339,7 +1345,8 @@ typedef struct OMX_FOCUSREGIONTYPE {
  */
 typedef enum OMX_ISOSETTINGTYPE{
         OMX_Auto = 0, /**<	*/
-        OMX_IsoManual	/**< */
+    OMX_IsoManual,      /**< */
+    OMX_IsoSettingMax = 0x7fffffff
 }OMX_ISOSETTINGTYPE;
 
 /**
@@ -1401,7 +1408,8 @@ typedef enum OMX_OBJDETECTQUALITY{
         OMX_Default,    /**< The default detection, should be used when no control of the detection quality is given.*/
         OMX_BetterDetection,    /**< A detection that levels correct detection with speed*/
         OMX_BestDtection,   /**< A detection that prioritizes correct detection*/
-        OMX_AUTODETECTION   /**< Automatically decide which object detection quality is best.*/
+    OMX_AUTODETECTION,       /**< Automatically decide which object detection quality is best.*/
+    OMX_ObjDetectQualityMax = 0x7fffffff
 }OMX_OBJDETECTQUALITY;
 
 /**
@@ -1444,7 +1452,8 @@ typedef struct OMX_CONFIG_OBJDETECTIONTYPE {
  */
 typedef enum OMX_DISTTYPE{
         OMX_DistanceControlFocus = 0, /**< focus objects distance type*/
-        OMX_DISTANCECONTROL_RECT	/**< Evaluated distance to the object found in the rectangelar area indicated as input region.  */
+    OMX_DISTANCECONTROL_RECT,       /**< Evaluated distance to the object found in the rectangelar area indicated as input region.  */
+    OMX_DistTypeMax = 0x7fffffff
 }OMX_DISTTYPE;
 
 
@@ -1490,12 +1499,25 @@ typedef struct OMX_CONFIG_DISTANCETYPE {
  *
  */
 typedef struct OMX_FACEATTRIBUTE {
-        OMX_U32 nARGBEyeColor;
-    OMX_U32 nARGBSkinColor;
-    OMX_U32 nARGBHairColor;
-    OMX_U32 nSmileScore;
-    OMX_U32 nBlinkScore;
-    OMX_U32 xIdentity[4];
+    OMX_U32 nARGBEyeColor;      /**< The indicates a 32-bit eye color of the person,
+                                     where bits 0-7 are blue, bits 15-8 are green, bits 24-16 are red,
+                                     and bits 31-24 are for alpha. */
+    OMX_U32 nARGBSkinColor;     /**< The indicates a 32-bit skin color of the person,
+                                     where bits 0-7 are blue, bits 15-8 are green, bits 24-16 are red,
+                                     and bits 31-24 are for alpha */
+    OMX_U32 nARGBHairColor;     /**< the indicates a 32-bit hair color of the person,
+                                     where bits 0-7 are blue, bits 15-8 are green, bits 24-16 are red,
+                                    and bits 31-24 are for alpha */
+    OMX_U32 nSmileScore;        /**< Smile detection score between 0 and 100, where 0 means not detecting,
+                                     1 means least certain and 100 means most certain a smile is detected */
+    OMX_U32 nBlinkScore;        /**< Eye-blink detection score between 0 and 100, where 0 means not detecting,
+                                     1 means least certain and 100 means most certain an eye-blink is detected */
+    OMX_U32 xIdentity[4];       /**< represents the identity of the face. With identity equal to zero this is not supported.
+                                     This can be used by a face recognition application.
+                                     The component shall not reuse an identity value unless the same face.
+                                     Can be used to track detected faces when it moves between frames.
+                                     Specific usage of this field is implementation dependent.
+                                     It can be some kind of ID */
 } OMX_FACEATTRIBUTE;
 
 /**
@@ -1521,16 +1543,22 @@ typedef struct OMX_TI_FACERESULT {
     OMX_VERSIONTYPE nVersion;
     OMX_U32 nPortIndex;
     OMX_TI_CAMERAVIEWTYPE eCameraView;
-    OMX_U32 nScore;
-    OMX_S32 nLeft;
-    OMX_S32 nTop;
-OMX_U32 nWidth;
-OMX_U32 nHeight;
+    OMX_U32               nScore;     /**< Detection score between 0 and 100, where 0 means unknown score,
+                                         1 means least certain and 100 means most certain the detection is correct */
+    OMX_S32 nLeft;                  /**< The leftmost coordinate of the detected area rectangle */
+    OMX_S32 nTop;                   /**< The topmost coordinate of the detected area rectangle */
+    OMX_U32 nWidth;                 /**< The width of the detected area rectangle in pixels */
+    OMX_U32 nHeight;                /**< The height of the detected area rectangle in pixels */
+    // The orientation of the axis of the detected object.
+    // Here roll angle is defined as the angle between the vertical axis of face and the horizontal axis.
+    // All angles can have the value of -180 to 180 degree in Q16 format.
+    // Some face detection algorithm may not be able to fill in the angles, this is denoted by the use of MAX_INT value.
 OMX_S32 nOrientationRoll;
 OMX_S32 nOrientationYaw;
 OMX_S32 nOrientationPitch;
-OMX_U32 nPriority;
-OMX_FACEATTRIBUTE nFaceAttr;
+    //
+    OMX_U32           nPriority;     /**< Represents priority of each object when there are multiple objects detected */
+    OMX_FACEATTRIBUTE nFaceAttr;     /**< Describe the attributes of the detected face object with the following structure */
 } OMX_TI_FACERESULT;
 
 
@@ -1545,7 +1573,7 @@ typedef struct OMX_FACEDETECTIONTYPE {
     OMX_VERSIONTYPE nVersion;
     OMX_U32 nPortIndex;
     OMX_TI_CAMERAVIEWTYPE    eCameraView;
-    OMX_U16 ulFaceCount;
+    OMX_U16               ulFaceCount;     // faces detected
     OMX_TI_FACERESULT tFacePosition[35];// 35 is max faces supported by FDIF
 } OMX_FACEDETECTIONTYPE;
 
@@ -1632,7 +1660,8 @@ typedef struct OMX_CONFIG_EXTRADATATYPE {
 typedef enum OMX_JPEGHEADERTYPE{
 	OMX_NoHeader = 0,
 	OMX_JFIF,
-	OMX_EXIF
+    OMX_EXIF,
+    OMX_JpegHeaderTypeMax = 0x7fffffff
 }OMX_JPEGHEADERTYPE;
 /**
  * Re-start marker configuration
