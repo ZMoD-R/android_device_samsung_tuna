@@ -53,7 +53,7 @@ extern "C" {
 #include <OMX_IVCommon.h>
 #include <OMX_Image.h>
 
-#define DCC_PATH "/data/misc/camera/"
+#define DCC_PATH  "/data/misc/camera/"
 
 #define MAX_URI_LENGTH      (OMX_MAX_STRINGNAME_SIZE)
 #define MAX_ALGOAREAS       (35)
@@ -474,8 +474,8 @@ typedef struct OMX_CONFIG_BRACKETINGTYPE {
     OMX_VERSIONTYPE nVersion;
     OMX_U32 nPortIndex;
     OMX_BRACKETMODETYPE eBracketMode;
-    OMX_U32 nNbrBracketingValues;
-    OMX_S32 nBracketValues[10]; /**< 10 can be assumed */
+    OMX_U32             nNbrBracketingValues;
+    OMX_S32             nBracketValues[10];     /**< 10 can be assumed */
     OMX_S32             nBracketValues2[10];     /**< 10 can be assumed */
 } OMX_CONFIG_BRACKETINGTYPE;
 
@@ -516,7 +516,7 @@ typedef enum OMX_CAMOPERATINGMODETYPE {
         OMX_CaptureImageProfileOpticalCorr1,
         OMX_CaptureImageProfileOpticalCorr2,
         OMX_CaptureImageProfileExtended1,
-	OMX_CaptureStereoImageCapture,
+        OMX_CaptureStereoImageCapture,
         OMX_CaptureImageMemoryInput,
         OMX_CaptureVideo,
         OMX_CaptureHighSpeedVideo,
@@ -1008,13 +1008,12 @@ typedef enum OMX_HISTCOMPONENTTYPE{
     OMX_HISTCOMP_32BIT_PATCH = 0x7FFFFFFF
 }OMX_HISTCOMPONENTTYPE;
 
- /**
+/**
  * The OMX_TI_CAMERAVIEWTYPE enumeration is used to identify the
  * particular camera view and frame type that the rest of
  * the data in the structure is associated with.
  */
-typedef enum OMX_TI_CAMERAVIEWTYPE
-{
+typedef enum OMX_TI_CAMERAVIEWTYPE {
     OMX_2D,     /**< Camera view in 2D sensor configuration */
     OMX_Left,   /**< Left camera view in stereo sensor configuration */
     OMX_Right,  /**< Right camera view in stereo sensor configuration */
@@ -1389,6 +1388,38 @@ typedef struct OMX_CONFIG_SENSORTYPE {
 } OMX_CONFIG_SENSORTYPE;
 
 /**
+* Sensor Detect
+*/
+typedef struct OMX_TI_PARAM_SENSORDETECT {
+    OMX_U32         nSize;
+    OMX_VERSIONTYPE nVersion;
+    OMX_U32         nPortIndex;
+    OMX_BOOL        bSensorDetect;
+} OMX_TI_PARAM_SENSORDETECT;
+
+/**
+ * OMX_BAYERCOMPRESSION
+ *
+ */
+typedef enum OMX_BAYERCOMPRESSION {
+    OMX_BAYER_UNPACKED,
+    OMX_BAYER_PACKED10,
+    OMX_BAYER_ALAW,
+    OMX_BAYER_DPCM,
+    OMX_BAYER_MAX = 0x7FFFFFFF
+} OMX_BAYERCOMPRESSION;
+
+/**
+* Sensor Detect
+*/
+typedef struct OMX_TI_PARAM_BAYERCOMPRESSION {
+    OMX_U32              nSize;
+    OMX_VERSIONTYPE      nVersion;
+    OMX_U32              nPortIndex;
+    OMX_BAYERCOMPRESSION eBayerCompression;
+} OMX_TI_PARAM_BAYERCOMPRESSION;
+
+/**
  * Sensor custom data type
  */
 typedef struct OMX_CONFIG_SENSORCUSTOMDATATYPE {
@@ -1599,25 +1630,24 @@ typedef struct OMX_TI_MTISTYPE {
  * The OMX_EXTRADATATYPE enumeration is used to define the
  * possible extra data payload types.
  */
-typedef enum OMX_EXT_EXTRADATATYPE
-{
-   OMX_ExifAttributes = 0x7F000001, /**< Reserved region for introducing Vendor Extensions */
+typedef enum OMX_EXT_EXTRADATATYPE {
+    OMX_ExifAttributes = 0x7F000001,     /**< 0x7F000001 Reserved region for introducing Vendor Extensions */
    OMX_AncillaryData,                   /**< 0x7F000002 ancillary data */
    OMX_WhiteBalance,                    /**< 0x7F000003 white balance resultant data */
    OMX_UnsaturatedRegions,              /**< 0x7F000004 unsaturated regions data */
-   OMX_FaceDetection, /**< face detect data */
-   OMX_BarcodeDetection, /**< bar-code detct data */
-   OMX_FrontObjectDetection, /**< Front object detection data */
-   OMX_MotionEstimation, /**< motion Estimation data */
+    OMX_FaceDetection,              /**< 0x7F000005 face detect data */
+    OMX_BarcodeDetection,           /**< 0x7F000006 bar-code detct data */
+    OMX_FrontObjectDetection,       /**< 0x7F000007 Front object detection data */
+    OMX_MotionEstimation,           /**< 0x7F000008 motion Estimation data */
    OMX_TI_MTISType,                     /**< 0x7F000009 MTIS motion Estimation data */
-   OMX_DistanceEstimation, /**< disctance estimation */
-   OMX_Histogram, /**< histogram */
-   OMX_FocusRegion, /**< focus region data */
+    OMX_DistanceEstimation,         /**< 0x7F00000A disctancedistance estimation */
+    OMX_Histogram,                  /**< 0x7F00000B histogram */
+    OMX_FocusRegion,                /**< 0x7F00000C focus region data */
    OMX_ExtraDataPanAndScan,             /**< 0x7F00000D pan and scan data */
-   OMX_RawFormat, /**< custom RAW data format */
-   OMX_SensorType, /**< vendor & model of the sensor being used */
-   OMX_SensorCustomDataLength, /**< vendor specific custom data length */
-   OMX_SensorCustomData, /**< vendor specific data */
+    OMX_RawFormat,                  /**< 0x7F00000E custom RAW data format */
+    OMX_SensorType,                 /**< 0x7F00000F vendor & model of the sensor being used */
+    OMX_SensorCustomDataLength,     /**< 0x7F000010 vendor specific custom data length */
+    OMX_SensorCustomData,           /**< 0x7F000011 vendor specific data */
    OMX_TI_FrameLayout,                  /**< 0x7F000012 vendor specific data */
    OMX_TI_SEIinfo2004Frame1,    /**< 0x7F000013 Used for 2004 SEI message to be provided by video decoders */
    OMX_TI_SEIinfo2004Frame2,    /**< 0x7F000014 Used for 2004 SEI message to be provided by video decoders */
@@ -1645,10 +1675,12 @@ typedef enum OMX_EXT_EXTRADATATYPE
  *
  */
 typedef struct OMX_CONFIG_EXTRADATATYPE {
-    OMX_U32 nSize;
+    OMX_U32 nSize;                              /**< The size of the structure including data bytes
+                                                     and any padding necessary to ensure 32bit alignment
+                                                     of the next OMX_OTHER_EXTRADATATYPE structure */
     OMX_VERSIONTYPE nVersion;
-    OMX_U32 nPortIndex;
-    OMX_EXT_EXTRADATATYPE eExtraDataType;
+    OMX_U32               nPortIndex;           /**< The read-only value containing the index of the port */
+    OMX_EXT_EXTRADATATYPE eExtraDataType;       /**< Identifies the extra data payload type */
     OMX_TI_CAMERAVIEWTYPE eCameraView;
     OMX_BOOL bEnable;
 } OMX_CONFIG_EXTRADATATYPE;
@@ -1727,7 +1759,8 @@ typedef struct OMX_IMAGE_JPEGMAXSIZE {
 
 typedef enum OMX_IMAGESTAMPOPERATION{
     OMX_NewImageStamp = 0,
-    OMX_Continuation
+    OMX_Continuation,
+    OMX_ImageStapOperationMax = 0x7fffffff
 }OMX_IMAGESTAMPOPERATION;
 
 
@@ -1968,10 +2001,10 @@ typedef struct OMX_TI_CONFIG_WHITEBALANCECOLORTEMPTYPE {
  */
 typedef enum OMX_TI_CONFIG_FOCUSSPOTMODETYPE {
     OMX_FocusSpotDefault = 0,                           /** Makes CommonFocusRegion to be used. */
-    OMX_FocusSpotSinglecenter,
-    OMX_FocusSpotMultiNormal,
-    OMX_FocusSpotMultiAverage,
-    OMX_FocusSpotMultiCenter,
+    OMX_FocusSpotSinglecenter,                          /** Only central part of the image is used for focus. */
+    OMX_FocusSpotMultiNormal,                           /** Middle part of the image is used with 100% weight, upper and lower parts are with 50%. */
+    OMX_FocusSpotMultiAverage,                          /** All the image is used with 100% weight. */
+    OMX_FocusSpotMultiCenter,                           /** Central part of the image is used with 100% weight, the rest is used with 50%. */
     OMX_FocusSpotExtensions = 0x6F000000,               /** Reserved region for introducing Khronos Standard Extensions */
     OMX_FocusSpotModeStartUnused = 0x7F000000,          /** Reserved region for introducing Vendor Extensions */
     OMX_FocusSpotModeMax = 0x7FFFFFFF
@@ -2120,10 +2153,6 @@ typedef enum OMX_TI_COLOR_FORMATTYPE {
 	    (OMX_COLOR_FORMATTYPE) OMX_COLOR_FormatVendorStartUnused + 1,
 	OMX_TI_COLOR_FormatRawBayer10bitStereo =
 	    OMX_COLOR_FormatVendorStartUnused + 2, /**< 10 bit raw for stereo */
-/*	OMX_TI_COLOR_FormatYUV420PackedSemiPlanar =
-            (OMX_COLOR_FORMATTYPE) OMX_COLOR_FormatVendorStartUnused  + 0x100, *//* 0x100 is used since it is the corresponding HAL pixel fromat */
-/*        OMX_COLOR_FormatAndroidOpaque =
-	    (OMX_COLOR_FORMATTYPE) OMX_COLOR_FormatVendorStartUnused  + 0x789 *//**< Platform specified opaque format set to unique value 0x789*/
 } OMX_TI_COLOR_FORMATTYPE;
 
 /**
