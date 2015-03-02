@@ -1134,26 +1134,6 @@ typedef struct OMX_TI_LSCTABLETYPE {
 } OMX_TI_LSCTABLETYPE;
 
 /**
- *  nSize is the size of the structure including the length of data field containing
- *  the histogram data.
- *  nBins is the number of bins in the histogram.
- *  eComponentType specifies the type of the histogram bins according to enum.
- *  It can be selected to generate multiple component types, then the extradata struct
- *  is repeated for each component type.
- *  data[1] first byte of the histogram data
- */
-typedef struct OMX_HISTOGRAMTYPE {
-    OMX_U32 nSize;
-    OMX_VERSIONTYPE nVersion;
-    OMX_U32 nPortIndex;
-    OMX_TI_CAMERAVIEWTYPE eCameraView;
-    OMX_U32 nBins;
-    OMX_HISTCOMPONENTTYPE eComponentType;
-    OMX_U8  data[1];
-} OMX_HISTOGRAMTYPE;
-
-
-/**
  * The extra data having ancillary data is described with the following structure.
  * This data contains single flags and values
  * (not arrays) that have general usage for camera applications.
