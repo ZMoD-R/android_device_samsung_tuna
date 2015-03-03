@@ -1619,7 +1619,7 @@ typedef enum OMX_EXT_EXTRADATATYPE {
     OMX_BarcodeDetection,           /**< 0x7F000006 bar-code detct data */
     OMX_FrontObjectDetection,       /**< 0x7F000007 Front object detection data */
     OMX_MotionEstimation,           /**< 0x7F000008 motion Estimation data */
-   OMX_TI_MTISType,                     /**< 0x7F000009 MTIS motion Estimation data */
+    OMX_MTISType,                   /**< 0x7F000009 MTIS motion Estimation data */
     OMX_DistanceEstimation,         /**< 0x7F00000A disctancedistance estimation */
     OMX_Histogram,                  /**< 0x7F00000B histogram */
     OMX_FocusRegion,                /**< 0x7F00000C focus region data */
@@ -1636,8 +1636,24 @@ typedef enum OMX_EXT_EXTRADATATYPE {
    OMX_TI_RangeMappingInfo,     /**< 0x7F000017 Used for Range mapping info provided by Video Decoders */
    OMX_TI_RescalingInfo,        /**< 0x7F000018 Used for width/height rescaling info provided by Video Decoders */
    OMX_TI_WhiteBalanceOverWrite,        /**< 0x7F000019 Used for manual AWB settings */
+    OMX_TI_CPCamData,               /**< 0x7F00001A Used for cp cam data */
+    OMX_TI_H264ESliceDataInfo,      /**< 0x7F00001B */
+    OMX_TI_DccData,                 /**< 0x7F00001C Used for dcc data overwrite in the file system */
+    OMX_TI_ProfilerData,            /**< 0x7F00001D Used for profiling data */
+    OMX_TI_VectShotInfo,            /**< 0x7F00001E Used for vector shot feedback notification */
+    OMX_TI_CamReProcMeta,           /**< 0x7F00001F Used for meta data input to camera re-proc function */
+    OMX_TI_LSCTable,                /**< 0x7F000020 Lens shading table for corresponding frame */
+    OMX_TI_CodecExtenderErrorFrame1, /**< 0x7F000021 Used for Codec Extended Error to be provided byvideo decoders */
+    OMX_TI_CodecExtenderErrorFrame2, /**< 0x7F000022 Used for Codec Extended Error to be provided byvideo decoders */
+    OMX_TI_MBInfoFrame1,            /**< 0x7F000023 Used for MBError message to be provided by videodecoders */
+    OMX_TI_MBInfoFrame2,            /**< 0x7F000024 Used for MBError message to be provided by videodecoders */
+    OMX_TI_SEIInfoFrame1,           /**< 0x7F000025 Used for SEI message to be provided by video decoders*/
+    OMX_TI_SEIInfoFrame2,           /**< 0x7F000026 Used for SEI message to be provided by video decoders*/
+    OMX_TI_VUIInfoFrame1,           /**< 0x7F000027 Used for VUI message to be provided by video decoders */
+    OMX_TI_VUIInfoFrame2,           /**< 0x7F000028 Used for VUI message to be provided by video decoders */
    OMX_TI_ExtraData_Count,
    OMX_TI_ExtraData_Max = OMX_TI_ExtraData_Count - 1,
+   OMX_TI_ExtraData_32Bit_Patch = 0x7fffffff
 } OMX_EXT_EXTRADATATYPE;
 
 
