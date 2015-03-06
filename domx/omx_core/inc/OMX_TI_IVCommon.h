@@ -2026,7 +2026,9 @@ typedef struct OMX_TI_CONFIG_FOCUSSPOTWEIGHTINGTYPE {
  * Enumeration of possible Exposure control types for OMX_EXPOSURECONTROLTYPE
  */
 typedef enum OMX_TI_EXTEXPOSURECONTROLTYPE {
-    OMX_TI_ExposureControlVeryLong = OMX_ExposureControlVendorStartUnused + 1
+    OMX_TI_ExposureControlVeryLong = OMX_ExposureControlVendorStartUnused + 1,
+    OMX_TI_ExposureControlFacePriority,
+    OMX_TI_ExposureControlMax = 0x7fffffff
 } OMX_TI_EXTEXPOSURECONTROLTYPE;
 
 /**
@@ -2122,6 +2124,8 @@ typedef enum OMX_TI_STEREOFRAMELAYOUTTYPE {
 	OMX_TI_StereoFrameLayout2D,
 	OMX_TI_StereoFrameLayoutTopBottom,
 	OMX_TI_StereoFrameLayoutLeftRight,
+    OMX_TI_StereoFrameLayoutTopBottomSubsample,
+    OMX_TI_StereoFrameLayoutLeftRightSubsample,
 	OMX_TI_StereoFrameLayoutMax = 0x7FFFFFFF
 } OMX_TI_STEREOFRAMELAYOUTTYPE;
 
@@ -2145,10 +2149,11 @@ typedef struct OMX_TI_FRAMELAYOUTTYPE {
  * extended color format types.
  */
 typedef enum OMX_TI_COLOR_FORMATTYPE {
-	OMX_TI_COLOR_FormatYUV420PackedSemiPlanarInterlaced =
-	    (OMX_COLOR_FORMATTYPE) OMX_COLOR_FormatVendorStartUnused + 1,
 	OMX_TI_COLOR_FormatRawBayer10bitStereo =
 	    OMX_COLOR_FormatVendorStartUnused + 2, /**< 10 bit raw for stereo */
+//	OMX_TI_COLOR_FormatYUV420PackedSemiPlanar =
+//            (OMX_COLOR_FORMATTYPE) OMX_COLOR_FormatVendorStartUnused  + 0x100, /* 0x100 is used since it is the corresponding HAL pixel fromat */
+    OMX_TI_ColorFormatTypeMax = 0x7fffffff
 } OMX_TI_COLOR_FORMATTYPE;
 
 /**
