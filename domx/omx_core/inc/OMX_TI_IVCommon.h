@@ -2436,14 +2436,30 @@ typedef struct OMX_TI_CONFIG_EXIF_TAGS {
 } OMX_TI_CONFIG_EXIF_TAGS;
 
 /**
+ * The OMX_TI_SENFACING_TYPE enumeration is used to define the
+ * sensor facing.
+ */
+typedef enum OMX_TI_SENFACING_TYPE {
+    OMX_TI_SENFACING_FRONT,
+    OMX_TI_SENFACING_BACK,
+    OMX_TI_SENFACING_MAX = 0x7FFFFFFF
+}OMX_TI_SENFACING_TYPE;
+
+/**
  * Structure used to configure current OMX_TI_SENMOUNT_TYPE
  *
  * @param nSenId
  * @param nRotation
+ * @param bMirror
+ * @param bFlip
+ * @param eFacing
  */
 typedef struct OMX_TI_SENMOUNT_TYPE {
     OMX_U32             nSenId;
     OMX_U32             nRotation;
+    OMX_BOOL                bMirror;
+    OMX_BOOL                bFlip;
+    OMX_TI_SENFACING_TYPE   eFacing;
 }OMX_TI_SENMOUNT_TYPE;
 
 /**
