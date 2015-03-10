@@ -171,29 +171,21 @@ status_t OMXCameraAdapter::setParametersCapture(const android::CameraParameters 
         parseExpRange(str, mExposureBracketingValues, NULL,
                       mExposureGainBracketingModes,
                       EXP_BRACKET_RANGE, mExposureBracketingValidEntries);
-#ifndef OMAP_TUNA
         if (mCapMode == OMXCameraAdapter::CP_CAM) {
             mExposureBracketMode = OMX_BracketVectorShot;
         } else {
-#endif
             mExposureBracketMode = OMX_BracketExposureRelativeInEV;
-#ifndef OMAP_TUNA
         }
-#endif
         mPendingCaptureSettings |= SetExpBracket;
     } else if ( (str = params.get(TICameraParameters::KEY_EXP_GAIN_BRACKETING_RANGE)) != NULL) {
         parseExpRange(str, mExposureBracketingValues, mExposureGainBracketingValues,
                       mExposureGainBracketingModes,
                       EXP_BRACKET_RANGE, mExposureBracketingValidEntries);
-#ifndef OMAP_TUNA
         if (mCapMode == OMXCameraAdapter::CP_CAM) {
             mExposureBracketMode = OMX_BracketVectorShot;
         } else {
-#endif
             mExposureBracketMode = OMX_BracketExposureGainAbsolute;
-#ifndef OMAP_TUNA
         }
-#endif
         mPendingCaptureSettings |= SetExpBracket;
     } else {
         // if bracketing was previously set...we set again before capturing to clear
@@ -813,17 +805,13 @@ status_t OMXCameraAdapter::setExposureBracketing(int *evValues,
 
         for ( unsigned int i = 0 ; i < evCount ; i++ )
             {
-#ifndef OMAP_TUNA
             if (bracketMode == OMX_BracketExposureGainAbsolute) {
                 extExpCapMode.tBracketConfigType.nBracketValues[i]  =  evValues[i];
                 extExpCapMode.tBracketConfigType.nBracketValues2[i]  =  evValues2[i];
             } else {
-#endif
                 // assuming OMX_BracketExposureRelativeInEV
                 extExpCapMode.tBracketConfigType.nBracketValues[i]  =  ( evValues[i] * ( 1 << Q16_OFFSET ) )  / 10;
-#ifndef OMAP_TUNA
             }
-#endif
             }
 
         eError =  OMX_SetConfig(mCameraAdapterParameters.mHandleComp,
