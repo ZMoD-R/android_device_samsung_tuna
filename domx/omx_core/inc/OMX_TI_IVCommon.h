@@ -2791,6 +2791,34 @@ typedef struct OMX_TI_CONFIG_VARFRMRANGETYPE {
 } OMX_TI_CONFIG_VARFRMRANGETYPE;
 
 /**
+ * Single preview capture modes
+ */
+    typedef enum OMX_TI_SINGLEPREVIEWMODETYPE {
+        OMX_TI_SinglePreviewMode_PreviewOnly,
+        OMX_TI_SinglePreviewMode_Video,
+        OMX_TI_SinglePreviewMode_ImageCapture,
+        OMX_TI_SinglePreviewMode_ImageCaptureHighSpeed,
+        OMX_TI_SinglePreviewMode_Reprocess,
+        OMX_TI_SinglePreviewMode = 0x7FFFFFFF
+    } OMX_TI_SINGLEPREVIEWMODETYPE;
+
+/**
+ * Define configuration structure for
+ * single preview capture mode
+ *
+ * STRUCT MEMBERS:
+ *  nSize               : Size of the structure in bytes
+ *  nVersion            : OMX specification version information
+ *  eMode               : Select the subusecase mode (Video/HQ/HS)
+ */
+    typedef struct OMX_TI_CONFIG_SINGLEPREVIEWMODETYPE {
+        OMX_U32                      nSize;
+        OMX_VERSIONTYPE              nVersion;
+        OMX_TI_SINGLEPREVIEWMODETYPE eMode;
+    } OMX_TI_CONFIG_SINGLEPREVIEWMODETYPE;
+
+
+/**
 * A pointer to this struct is passed to the OMX_SetParameter when the extension
 * index for the 'OMX.google.android.index.enableAndroidNativeBuffers' extension
 * is given.

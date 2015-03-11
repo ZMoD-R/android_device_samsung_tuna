@@ -80,11 +80,9 @@ status_t OMXCameraAdapter::setParametersAlgo(const android::CameraParameters &pa
         mCapabilitiesOpMode = MODE_HIGH_QUALITY;
     }
 
-#ifndef OMAP_TUNA
     if ( mSensorIndex == 2 ) {
        mCapabilitiesOpMode = MODE_STEREO;
     }
-#endif
 
     if ( mCapMode != capMode ) {
         mCapMode = capMode;
@@ -633,17 +631,13 @@ status_t OMXCameraAdapter::setCaptureMode(OMXCameraAdapter::CaptureMode mode)
     OMX_ERRORTYPE eError = OMX_ErrorNone;
     OMX_CONFIG_CAMOPERATINGMODETYPE camMode;
     OMX_CONFIG_BOOLEANTYPE bCAC;
-#ifndef OMAP_TUNA
     OMX_TI_CONFIG_SINGLEPREVIEWMODETYPE singlePrevMode;
-#endif
 
     LOG_FUNCTION_NAME;
 
     //CAC is disabled by default
     OMX_INIT_STRUCT_PTR (&bCAC, OMX_CONFIG_BOOLEANTYPE);
-#ifndef OMAP_TUNA
     OMX_INIT_STRUCT_PTR (&singlePrevMode, OMX_TI_CONFIG_SINGLEPREVIEWMODETYPE);
-#endif
     bCAC.bEnabled = OMX_FALSE;
 
     if ( NO_ERROR == ret )
@@ -652,17 +646,13 @@ status_t OMXCameraAdapter::setCaptureMode(OMXCameraAdapter::CaptureMode mode)
         OMX_INIT_STRUCT_PTR (&camMode, OMX_CONFIG_CAMOPERATINGMODETYPE);
         if ( mSensorIndex == OMX_TI_StereoSensor )
             {
-#ifndef OMAP_TUNA
             if ( OMXCameraAdapter::VIDEO_MODE == mode ) {
                 CAMHAL_LOGDA("Camera mode: STEREO VIDEO");
                 camMode.eCamOperatingMode = OMX_TI_StereoVideo;
             } else {
-#endif
                 CAMHAL_LOGDA("Camera mode: STEREO");
                 camMode.eCamOperatingMode = OMX_CaptureStereoImageCapture;
-#ifndef OMAP_TUNA
             }
-#endif
             }
         else if ( OMXCameraAdapter::HIGH_SPEED == mode )
             {
@@ -672,11 +662,9 @@ status_t OMXCameraAdapter::setCaptureMode(OMXCameraAdapter::CaptureMode mode)
         else if ( OMXCameraAdapter::CP_CAM == mode )
             {
             CAMHAL_LOGDA("Camera mode: CP CAM");
-#ifndef OMAP_TUNA
             camMode.eCamOperatingMode = OMX_TI_CPCam;
             // TODO(XXX): Hardcode for now until we implement re-proc pipe
             singlePrevMode.eMode = OMX_TI_SinglePreviewMode_ImageCaptureHighSpeed;
-#endif
             }
         else if( OMXCameraAdapter::HIGH_QUALITY == mode )
             {
