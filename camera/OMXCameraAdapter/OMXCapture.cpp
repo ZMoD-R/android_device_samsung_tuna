@@ -1863,11 +1863,13 @@ status_t OMXCameraAdapter::UseBuffersCapture(CameraBuffer * bufArr, int num)
 
         // Enable WB and vector shot extra data for metadata
         ret = setExtraData(true, mCameraAdapterParameters.mImagePortIndex, OMX_WhiteBalance);
+#ifndef OMAP_TUNA
         ret = setExtraData(true, mCameraAdapterParameters.mImagePortIndex, OMX_TI_LSCTable);
 
         // CPCam mode only supports vector shot
         // Regular capture is not supported
         if (mCapMode == CP_CAM) initVectorShot();
+#endif
     }
 
     if ( NO_ERROR == ret )
