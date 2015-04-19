@@ -16,6 +16,9 @@
 
 DEVICE_FOLDER := device/samsung/tuna
 
+BOARD_USE_TI_LIBION := false
+export BOARD_USE_TI_LIBION
+
 # inherit from omap4
 -include hardware/ti/omap4/BoardConfigCommon.mk
 
@@ -36,8 +39,10 @@ TARGET_BOARD_OMAP_CPU := 4460
 # Kernel
 BOARD_KERNEL_BASE := 0x80000000
 # BOARD_KERNEL_CMDLINE :=
-TARGET_KERNEL_CONFIG := tuna_defconfig
-TARGET_KERNEL_SOURCE := kernel/samsung/tuna
+TARGET_KERNEL_CONFIG := android_omap4_defconfig
+TARGET_KERNEL_VARIANT_CONFIG := android_tuna_defconfig
+TARGET_KERNEL_SELINUX_CONFIG := selinux_defconfig
+TARGET_KERNEL_SOURCE := kernel/kernel_omap
 TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.7
 
 # Use dlmalloc
